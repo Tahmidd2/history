@@ -23,6 +23,7 @@
       --accent-soft: rgba(79, 232, 223, 0.12);
       --accent-mid: rgba(79, 232, 223, 0.42);
       --shadow: rgba(0, 0, 0, 0.45);
+      --progress: 0%;
       --display: "Playfair Display", Georgia, serif;
       --mono: "IBM Plex Mono", "Courier New", monospace;
       --body: Georgia, "Times New Roman", serif;
@@ -56,6 +57,19 @@
       overflow: hidden;
     }
 
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1200;
+      width: var(--progress);
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), #bffffb);
+      box-shadow: 0 0 18px rgba(79, 232, 223, 0.8);
+      pointer-events: none;
+      transition: width 0.08s linear;
+    }
+
     ::selection {
       background: var(--accent);
       color: var(--bg);
@@ -73,6 +87,44 @@
     .site-shell {
       min-height: 100vh;
       position: relative;
+      isolation: isolate;
+    }
+
+    .site-shell::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        linear-gradient(115deg, transparent 0 26%, rgba(79, 232, 223, 0.08) 26.1% 26.32%, transparent 26.42% 100%),
+        linear-gradient(72deg, transparent 0 49%, rgba(240, 238, 234, 0.055) 49.1% 49.22%, transparent 49.32% 100%),
+        linear-gradient(150deg, transparent 0 64%, rgba(79, 232, 223, 0.055) 64.1% 64.25%, transparent 64.35% 100%);
+      opacity: 0.72;
+      animation: routeDrift 18s ease-in-out infinite alternate;
+    }
+
+    .site-shell::after {
+      content: "";
+      position: fixed;
+      inset: -20vh -10vw;
+      z-index: -3;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 72% 18%, rgba(79, 232, 223, 0.09), transparent 22%),
+        radial-gradient(circle at 18% 82%, rgba(159, 169, 173, 0.08), transparent 28%);
+      filter: blur(2px);
+      animation: ambientPulse 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes routeDrift {
+      from { transform: translate3d(-1.5vw, -1vh, 0); }
+      to { transform: translate3d(1.5vw, 1vh, 0); }
+    }
+
+    @keyframes ambientPulse {
+      from { opacity: 0.45; transform: scale(1); }
+      to { opacity: 0.82; transform: scale(1.03); }
     }
 
     .section {
@@ -95,6 +147,24 @@
       inset: 12vh 8vw;
       border: 1px solid rgba(79, 232, 223, 0.14);
       pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: min(68vw, 820px);
+      height: min(68vw, 820px);
+      border: 1px solid rgba(79, 232, 223, 0.12);
+      border-radius: 50%;
+      box-shadow:
+        inset 0 0 70px rgba(79, 232, 223, 0.045),
+        0 0 90px rgba(79, 232, 223, 0.055);
+      animation: slowSpin 34s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes slowSpin {
+      to { transform: rotate(360deg); }
     }
 
     .hero-inner {
@@ -152,6 +222,7 @@
       color: var(--accent);
       font-size: clamp(1.25rem, 3vw, 2rem);
       font-weight: 600;
+      text-shadow: 0 0 22px rgba(79, 232, 223, 0.26);
     }
 
     .fade-up {
@@ -213,6 +284,21 @@
       overflow: hidden;
     }
 
+    .quote-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.6;
+      animation: signalSweep 5.5s ease-in-out infinite;
+    }
+
+    @keyframes signalSweep {
+      0%, 100% { transform: translateX(-45%); opacity: 0.18; }
+      50% { transform: translateX(45%); opacity: 0.78; }
+    }
+
     .quote-card::before {
       content: "\201C";
       position: absolute;
@@ -261,6 +347,9 @@
       padding: 24px 0 24px 18px;
       border-left: 1px solid var(--line-soft);
       min-height: 70vh;
+      background:
+        linear-gradient(90deg, rgba(8, 12, 16, 0.9), rgba(8, 12, 16, 0.36), transparent);
+      backdrop-filter: blur(4px);
     }
 
     .timeline-title {
@@ -287,6 +376,21 @@
       margin-left: -20px;
       cursor: pointer;
       transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      position: relative;
+    }
+
+    .timeline-link::before {
+      content: "";
+      position: absolute;
+      left: -7px;
+      top: 50%;
+      width: 9px;
+      height: 9px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      background: var(--bg);
+      transform: translateY(-50%);
+      transition: box-shadow 0.2s ease, background 0.2s ease;
     }
 
     .timeline-link:hover,
@@ -294,6 +398,11 @@
       color: var(--accent);
       border-left-color: var(--accent);
       transform: translateX(4px);
+    }
+
+    .timeline-link.is-active::before {
+      background: var(--accent);
+      box-shadow: 0 0 0 7px rgba(79, 232, 223, 0.1), 0 0 22px rgba(79, 232, 223, 0.55);
     }
 
     .timeline-num {
@@ -328,6 +437,17 @@
       position: relative;
     }
 
+    .stop-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent 70%);
+      opacity: 0.18;
+    }
+
     .stop-section.is-visible {
       opacity: 1;
       transform: translateY(0);
@@ -350,6 +470,7 @@
       line-height: 0.8;
       opacity: 0.16;
       z-index: -1;
+      text-shadow: 0 0 40px rgba(79, 232, 223, 0.4);
     }
 
     .stop-header h2 {
@@ -362,6 +483,18 @@
       color: var(--accent);
       font-size: clamp(0.76rem, 1.5vw, 0.95rem);
       text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stop-location::before,
+    .stop-location::after {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.55;
     }
 
     .gallery {
@@ -370,6 +503,7 @@
       grid-auto-flow: dense;
       gap: 12px;
       margin: 30px 0 34px;
+      perspective: 1200px;
     }
 
     .gallery-item {
@@ -384,6 +518,21 @@
       isolation: isolate;
       font: inherit;
       color: inherit;
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .gallery-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 28%),
+        linear-gradient(0deg, rgba(8, 12, 16, 0.24), transparent 46%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+      z-index: 1;
     }
 
     .gallery-item.featured {
@@ -404,6 +553,19 @@
     .gallery-item:hover img {
       transform: scale(1.035);
       filter: saturate(0.95) contrast(1.12);
+    }
+
+    .gallery-item:hover,
+    .gallery-item:focus-visible {
+      border-color: rgba(79, 232, 223, 0.62);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.36), 0 0 0 1px rgba(79, 232, 223, 0.12);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .gallery-item:hover::after,
+    .gallery-item:focus-visible::after {
+      opacity: 1;
     }
 
     .filename-tag {
@@ -463,6 +625,7 @@
       font-family: var(--mono);
       font-size: 0.88rem;
       line-height: 1.75;
+      background: linear-gradient(90deg, rgba(79, 232, 223, 0.065), transparent);
     }
 
     .insight {
@@ -474,6 +637,7 @@
       font-size: clamp(1.25rem, 2.3vw, 1.75rem);
       font-weight: 600;
       line-height: 1.45;
+      text-shadow: 0 0 20px rgba(79, 232, 223, 0.15);
     }
 
     .insight .label {
@@ -489,6 +653,7 @@
       padding-top: clamp(110px, 16vw, 190px);
       padding-bottom: clamp(110px, 16vw, 190px);
       background:
+        radial-gradient(circle at 50% 22%, rgba(79, 232, 223, 0.09), transparent 24%),
         linear-gradient(180deg, rgba(8, 12, 16, 0), rgba(79, 232, 223, 0.06) 34%, rgba(8, 12, 16, 0));
     }
 
@@ -774,6 +939,7 @@
   </style>
 </head>
 <body>
+  <div class="scroll-progress" aria-hidden="true"></div>
   <main class="site-shell">
     <section class="hero section" id="top" aria-label="Opening title">
       <div class="hero-inner">
@@ -1121,7 +1287,39 @@
       }
     }
 
+    function updateScrollProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      document.documentElement.style.setProperty("--progress", `${Math.min(100, Math.max(0, progress))}%`);
+    }
+
+    function updateActiveStop() {
+      const sections = Array.from(document.querySelectorAll(".stop-section"));
+      if (!sections.length) return;
+
+      const targetLine = window.innerHeight * 0.38;
+      const containing = sections.find((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= targetLine && rect.bottom >= targetLine;
+      });
+
+      if (containing) {
+        setActiveTimeline(containing.dataset.stopId);
+        return;
+      }
+
+      const closest = sections.reduce((best, section) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top - targetLine);
+        return distance < best.distance ? { section, distance } : best;
+      }, { section: sections[0], distance: Infinity });
+
+      setActiveTimeline(closest.section.dataset.stopId);
+    }
+
     renderStops();
+    updateScrollProgress();
+    updateActiveStop();
 
     timelineLinks.forEach((link) => {
       link.addEventListener("click", () => {
@@ -1160,6 +1358,11 @@
       paragraph.style.transitionDelay = `${index * 180}ms`;
       reflectionObserver.observe(paragraph);
     });
+
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("scroll", updateActiveStop, { passive: true });
+    window.addEventListener("resize", updateScrollProgress);
+    window.addEventListener("resize", updateActiveStop);
 
     closeButton.addEventListener("click", closeLightbox);
     prevButton.addEventListener("click", showPreviousImage);
