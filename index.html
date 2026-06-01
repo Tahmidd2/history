@@ -24,6 +24,7 @@
       --accent-mid: rgba(79, 232, 223, 0.42);
       --shadow: rgba(0, 0, 0, 0.45);
       --progress: 0%;
+      --progress-scale: 0;
       --display: "Playfair Display", Georgia, serif;
       --mono: "IBM Plex Mono", "Courier New", monospace;
       --body: Georgia, "Times New Roman", serif;
@@ -62,12 +63,14 @@
       top: 0;
       left: 0;
       z-index: 1200;
-      width: var(--progress);
+      width: 100%;
       height: 3px;
       background: linear-gradient(90deg, transparent, var(--accent), #bffffb);
-      box-shadow: 0 0 18px rgba(79, 232, 223, 0.8);
+      box-shadow: 0 0 12px rgba(79, 232, 223, 0.58);
       pointer-events: none;
-      transition: width 0.08s linear;
+      transform: scaleX(var(--progress-scale));
+      transform-origin: left center;
+      will-change: transform;
     }
 
     ::selection {
@@ -100,8 +103,7 @@
         linear-gradient(115deg, transparent 0 26%, rgba(79, 232, 223, 0.08) 26.1% 26.32%, transparent 26.42% 100%),
         linear-gradient(72deg, transparent 0 49%, rgba(240, 238, 234, 0.055) 49.1% 49.22%, transparent 49.32% 100%),
         linear-gradient(150deg, transparent 0 64%, rgba(79, 232, 223, 0.055) 64.1% 64.25%, transparent 64.35% 100%);
-      opacity: 0.72;
-      animation: routeDrift 18s ease-in-out infinite alternate;
+      opacity: 0.58;
     }
 
     .site-shell::after {
@@ -113,18 +115,7 @@
       background:
         radial-gradient(circle at 72% 18%, rgba(79, 232, 223, 0.09), transparent 22%),
         radial-gradient(circle at 18% 82%, rgba(159, 169, 173, 0.08), transparent 28%);
-      filter: blur(2px);
-      animation: ambientPulse 10s ease-in-out infinite alternate;
-    }
-
-    @keyframes routeDrift {
-      from { transform: translate3d(-1.5vw, -1vh, 0); }
-      to { transform: translate3d(1.5vw, 1vh, 0); }
-    }
-
-    @keyframes ambientPulse {
-      from { opacity: 0.45; transform: scale(1); }
-      to { opacity: 0.82; transform: scale(1.03); }
+      opacity: 0.58;
     }
 
     .section {
@@ -156,15 +147,8 @@
       height: min(68vw, 820px);
       border: 1px solid rgba(79, 232, 223, 0.12);
       border-radius: 50%;
-      box-shadow:
-        inset 0 0 70px rgba(79, 232, 223, 0.045),
-        0 0 90px rgba(79, 232, 223, 0.055);
-      animation: slowSpin 34s linear infinite;
+      box-shadow: inset 0 0 44px rgba(79, 232, 223, 0.035);
       pointer-events: none;
-    }
-
-    @keyframes slowSpin {
-      to { transform: rotate(360deg); }
     }
 
     .hero-inner {
@@ -349,7 +333,6 @@
       min-height: 70vh;
       background:
         linear-gradient(90deg, rgba(8, 12, 16, 0.9), rgba(8, 12, 16, 0.36), transparent);
-      backdrop-filter: blur(4px);
     }
 
     .timeline-title {
@@ -518,7 +501,7 @@
       isolation: isolate;
       font: inherit;
       color: inherit;
-      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
       transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
     }
 
@@ -546,13 +529,11 @@
       height: 100%;
       min-height: inherit;
       object-fit: cover;
-      filter: saturate(0.86) contrast(1.08);
-      transition: transform 0.45s ease, filter 0.2s ease;
+      transition: transform 0.35s ease;
     }
 
     .gallery-item:hover img {
       transform: scale(1.035);
-      filter: saturate(0.95) contrast(1.12);
     }
 
     .gallery-item:hover,
@@ -730,7 +711,6 @@
       justify-content: center;
       padding: 72px clamp(18px, 4vw, 60px);
       background: rgba(2, 5, 8, 0.92);
-      backdrop-filter: blur(10px);
     }
 
     .lightbox.is-open {
@@ -834,7 +814,6 @@
         border-left: 0;
         border-bottom: 1px solid var(--line-soft);
         background: rgba(8, 12, 16, 0.92);
-        backdrop-filter: blur(12px);
       }
 
       .timeline-title {
@@ -1048,9 +1027,9 @@
         location: "Hunters Point Avenue Station / 1892-1917",
         years: "1892-1917",
         images: [
-          "images/stop1/photo1.png",
-          "images/stop1/photo2.png",
-          "images/stop1/photo3.png"
+          "images/stop1/photo1.jpg",
+          "images/stop1/photo2.jpg",
+          "images/stop1/photo3.jpg"
         ],
         context: [
           "William Steinway began the tunnel in 1892 because he believed a direct rail connection would raise the value of his western Queens property. Construction ran into explosions, underground springs, legal disputes, and Steinway's own death in 1896.",
@@ -1067,9 +1046,9 @@
         location: "Flushing Meadows-Corona Park / 1964",
         years: "1964",
         images: [
-          "images/stop2/photo1.png",
-          "images/stop2/photo2.png",
-          "images/stop2/photo3.png"
+          "images/stop2/photo1.jpg",
+          "images/stop2/photo2.jpg",
+          "images/stop2/photo3.jpg"
         ],
         context: [
           "The Unisphere is a 140-foot stainless steel globe built for the 1964 World's Fair as a symbol of international connection and American technological achievement at the height of the Cold War.",
@@ -1086,11 +1065,11 @@
         location: "Flushing Meadows-Corona Park / 1964",
         years: "1964",
         images: [
-          "images/stop3/photo1.png",
-          "images/stop3/photo2.png",
-          "images/stop3/photo3.png",
-          "images/stop3/photo4.png",
-          "images/stop3/photo5.png"
+          "images/stop3/photo1.jpg",
+          "images/stop3/photo2.jpg",
+          "images/stop3/photo3.jpg",
+          "images/stop3/photo4.jpg",
+          "images/stop3/photo5.jpg"
         ],
         context: [
           "The New York Hall of Science was built for the 1964 World's Fair in response to Sputnik and American fears of falling behind the Soviet Union in science, technology, engineering, and math.",
@@ -1107,10 +1086,10 @@
         location: "Queens Museum / 1964",
         years: "1964",
         images: [
-          "images/stop4/photo1.png",
-          "images/stop4/photo2.png",
-          "images/stop4/photo3.png",
-          "images/stop4/photo4.png"
+          "images/stop4/photo1.jpg",
+          "images/stop4/photo2.jpg",
+          "images/stop4/photo3.jpg",
+          "images/stop4/photo4.jpg"
         ],
         context: [
           "The Panorama is a 9,335-square-foot scale model of all five boroughs, built by Robert Moses, who was president of the 1964 World's Fair. Every bridge, highway, park, and building appears at uniform scale.",
@@ -1127,8 +1106,8 @@
         location: "Jackson Heights-Roosevelt Avenue / 2012",
         years: "2012",
         images: [
-          "images/stop5/photo1.png",
-          "images/stop5/photo2.png"
+          "images/stop5/photo1.jpg",
+          "images/stop5/photo2.jpg"
         ],
         context: [
           "Diversity Plaza sits beside the Jackson Heights-Roosevelt Avenue station, where five subway lines converge. That proximity is not coincidental: the plaza exists at one of the borough's most important transit crossroads.",
@@ -1155,6 +1134,7 @@
     let activeStopName = "";
     let activeImageIndex = 0;
     let previousFocus = null;
+    let scrollTicking = false;
 
     function createPlaceholder(filename) {
       const placeholder = document.createElement("div");
@@ -1176,7 +1156,7 @@
         const paragraphs = stop.context.map((text) => `<p>${text}</p>`).join("");
         const gallery = stop.images.map((src, index) => `
           <button class="gallery-item ${index === 0 ? "featured" : ""}" type="button" data-stop-index="${stop.id - 1}" data-image-index="${index}" aria-label="Open ${stop.name} photo ${index + 1}">
-            <img src="${src}" alt="${stop.name} photo ${index + 1}" loading="eager">
+            <img src="${src}" alt="${stop.name} photo ${index + 1}" loading="eager" decoding="async">
             <span class="filename-tag">${src}</span>
           </button>
         `).join("");
@@ -1291,6 +1271,7 @@
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
       document.documentElement.style.setProperty("--progress", `${Math.min(100, Math.max(0, progress))}%`);
+      document.documentElement.style.setProperty("--progress-scale", `${Math.min(1, Math.max(0, progress / 100))}`);
     }
 
     function updateActiveStop() {
@@ -1317,9 +1298,22 @@
       setActiveTimeline(closest.section.dataset.stopId);
     }
 
+    function updateScrollEffects() {
+      updateScrollProgress();
+      updateActiveStop();
+    }
+
+    function scheduleScrollEffects() {
+      if (scrollTicking) return;
+      scrollTicking = true;
+      window.requestAnimationFrame(() => {
+        updateScrollEffects();
+        scrollTicking = false;
+      });
+    }
+
     renderStops();
-    updateScrollProgress();
-    updateActiveStop();
+    updateScrollEffects();
 
     timelineLinks.forEach((link) => {
       link.addEventListener("click", () => {
@@ -1328,41 +1322,12 @@
       });
     });
 
-    const stopObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          setActiveTimeline(entry.target.dataset.stopId);
-        }
-      });
-    }, {
-      threshold: 0.15,
-      rootMargin: "-12% 0px -52% 0px"
-    });
-
-    document.querySelectorAll(".stop-section").forEach((section) => {
-      stopObserver.observe(section);
-    });
-
-    const reflectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-        }
-      });
-    }, {
-      threshold: 0.25
-    });
-
     document.querySelectorAll(".reflection p").forEach((paragraph, index) => {
       paragraph.style.transitionDelay = `${index * 180}ms`;
-      reflectionObserver.observe(paragraph);
     });
 
-    window.addEventListener("scroll", updateScrollProgress, { passive: true });
-    window.addEventListener("scroll", updateActiveStop, { passive: true });
-    window.addEventListener("resize", updateScrollProgress);
-    window.addEventListener("resize", updateActiveStop);
+    window.addEventListener("scroll", scheduleScrollEffects, { passive: true });
+    window.addEventListener("resize", updateScrollEffects);
 
     closeButton.addEventListener("click", closeLightbox);
     prevButton.addEventListener("click", showPreviousImage);
