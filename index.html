@@ -322,8 +322,8 @@
     .stop-section {
       min-height: 100vh;
       padding: 48px 0 126px;
-      opacity: 0;
-      transform: translateY(28px);
+      opacity: 1;
+      transform: translateY(0);
       transition: opacity 0.85s ease, transform 0.85s ease;
       position: relative;
     }
@@ -373,13 +373,17 @@
     }
 
     .gallery-item {
+      appearance: none;
       border: 1px solid rgba(240, 238, 234, 0.1);
       background: var(--panel);
       min-height: 210px;
+      padding: 0;
       position: relative;
       overflow: hidden;
       cursor: zoom-in;
       isolation: isolate;
+      font: inherit;
+      color: inherit;
     }
 
     .gallery-item.featured {
@@ -503,8 +507,8 @@
       color: var(--ink);
       font-size: clamp(1.25rem, 2.3vw, 1.75rem);
       line-height: 1.85;
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 1;
+      transform: translateY(0);
       transition: opacity 1.5s ease, transform 1.5s ease;
     }
 
@@ -878,9 +882,9 @@
         location: "Hunters Point Avenue Station / 1892-1917",
         years: "1892-1917",
         images: [
-          "images/steinway/photo1.png",
-          "images/steinway/photo2.png",
-          "images/steinway/photo3.png"
+          "images/stop1/photo1.png",
+          "images/stop1/photo2.png",
+          "images/stop1/photo3.png"
         ],
         context: [
           "William Steinway began the tunnel in 1892 because he believed a direct rail connection would raise the value of his western Queens property. Construction ran into explosions, underground springs, legal disputes, and Steinway's own death in 1896.",
@@ -897,9 +901,9 @@
         location: "Flushing Meadows-Corona Park / 1964",
         years: "1964",
         images: [
-          "images/unisphere/photo1.png",
-          "images/unisphere/photo2.png",
-          "images/unisphere/photo3.png"
+          "images/stop2/photo1.png",
+          "images/stop2/photo2.png",
+          "images/stop2/photo3.png"
         ],
         context: [
           "The Unisphere is a 140-foot stainless steel globe built for the 1964 World's Fair as a symbol of international connection and American technological achievement at the height of the Cold War.",
@@ -916,11 +920,11 @@
         location: "Flushing Meadows-Corona Park / 1964",
         years: "1964",
         images: [
-          "images/ny hall of science/photo1.png",
-          "images/ny hall of science/photo2.png",
-          "images/ny hall of science/photo3.png",
-          "images/ny hall of science/photo4.png",
-          "images/ny hall of science/photo5.png"
+          "images/stop3/photo1.png",
+          "images/stop3/photo2.png",
+          "images/stop3/photo3.png",
+          "images/stop3/photo4.png",
+          "images/stop3/photo5.png"
         ],
         context: [
           "The New York Hall of Science was built for the 1964 World's Fair in response to Sputnik and American fears of falling behind the Soviet Union in science, technology, engineering, and math.",
@@ -937,10 +941,10 @@
         location: "Queens Museum / 1964",
         years: "1964",
         images: [
-          "images/panorama/photo1.png",
-          "images/panorama/photo2.png",
-          "images/panorama/photo3.png",
-          "images/panorama/photo4.png"
+          "images/stop4/photo1.png",
+          "images/stop4/photo2.png",
+          "images/stop4/photo3.png",
+          "images/stop4/photo4.png"
         ],
         context: [
           "The Panorama is a 9,335-square-foot scale model of all five boroughs, built by Robert Moses, who was president of the 1964 World's Fair. Every bridge, highway, park, and building appears at uniform scale.",
@@ -957,8 +961,8 @@
         location: "Jackson Heights-Roosevelt Avenue / 2012",
         years: "2012",
         images: [
-          "images/diversity plaza/photo1.png",
-          "images/diversity plaza/photo2.png"
+          "images/stop5/photo1.png",
+          "images/stop5/photo2.png"
         ],
         context: [
           "Diversity Plaza sits beside the Jackson Heights-Roosevelt Avenue station, where five subway lines converge. That proximity is not coincidental: the plaza exists at one of the borough's most important transit crossroads.",
@@ -1006,7 +1010,7 @@
         const paragraphs = stop.context.map((text) => `<p>${text}</p>`).join("");
         const gallery = stop.images.map((src, index) => `
           <button class="gallery-item ${index === 0 ? "featured" : ""}" type="button" data-stop-index="${stop.id - 1}" data-image-index="${index}" aria-label="Open ${stop.name} photo ${index + 1}">
-            <img src="${src}" alt="${stop.name} photo ${index + 1}" loading="lazy">
+            <img src="${src}" alt="${stop.name} photo ${index + 1}" loading="eager">
             <span class="filename-tag">${src}</span>
           </button>
         `).join("");
