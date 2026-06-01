@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Technology and Infrastructure Transformed Queens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=Playfair+Display:wght@600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080c10;
+      --bg-2: #0d1318;
+      --panel: #101820;
+      --panel-2: #131c24;
+      --ink: #f0eeea;
+      --white: #ffffff;
+      --muted: #9fa9ad;
+      --dim: #68757d;
+      --line: rgba(122, 232, 226, 0.18);
+      --line-soft: rgba(240, 238, 234, 0.11);
+      --accent: #4fe8df;
+      --accent-soft: rgba(79, 232, 223, 0.12);
+      --accent-mid: rgba(79, 232, 223, 0.42);
+      --shadow: rgba(0, 0, 0, 0.45);
+      --display: "Playfair Display", Georgia, serif;
+      --mono: "IBM Plex Mono", "Courier New", monospace;
+      --body: Georgia, "Times New Roman", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(79, 232, 223, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79, 232, 223, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at 15% 10%, rgba(79, 232, 223, 0.08), transparent 30%),
+        var(--bg);
+      background-size: 28px 28px, 28px 28px, auto, auto;
+      font-family: var(--body);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body.lightbox-open {
+      overflow: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .site-shell {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .section {
+      position: relative;
+      padding: 110px clamp(20px, 5vw, 72px);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 80px 24px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 12vh 8vw;
+      border: 1px solid rgba(79, 232, 223, 0.14);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .kicker,
+    .meta,
+    .stop-location,
+    .source-list,
+    .timeline-link,
+    .quote-attribution,
+    .label {
+      font-family: var(--mono);
+      letter-spacing: 0;
+    }
+
+    .kicker {
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--display);
+      color: var(--white);
+      line-height: 0.98;
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(4rem, 10vw, 10.5rem);
+      max-width: 1120px;
+      margin: 0 auto;
+      font-weight: 900;
+    }
+
+    .hero .meta {
+      margin: 28px 0 18px;
+      color: var(--muted);
+      font-size: clamp(0.82rem, 1.6vw, 1.05rem);
+      text-transform: uppercase;
+    }
+
+    .thesis-line {
+      margin: 0;
+      color: var(--accent);
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      font-weight: 600;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      animation: fadeUp 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .delay-1 { animation-delay: 0.25s; }
+    .delay-2 { animation-delay: 0.5s; }
+    .delay-3 { animation-delay: 0.75s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      left: 50%;
+      bottom: 32px;
+      width: 22px;
+      height: 48px;
+      border: 1px solid rgba(240, 238, 234, 0.28);
+      transform: translateX(-50%);
+      display: grid;
+      place-items: start center;
+      padding-top: 9px;
+    }
+
+    .scroll-indicator::after {
+      content: "";
+      width: 4px;
+      height: 12px;
+      background: var(--accent);
+      animation: bounceLine 1.8s ease-in-out infinite;
+    }
+
+    @keyframes bounceLine {
+      0%, 100% { transform: translateY(0); opacity: 0.45; }
+      50% { transform: translateY(17px); opacity: 1; }
+    }
+
+    .pull-quote {
+      padding-top: 90px;
+      padding-bottom: 90px;
+    }
+
+    .quote-card {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(16, 24, 32, 0.98), rgba(11, 17, 22, 0.98));
+      border: 1px solid var(--line-soft);
+      box-shadow: 0 30px 90px var(--shadow);
+      padding: clamp(32px, 6vw, 74px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-card::before {
+      content: "\201C";
+      position: absolute;
+      top: -36px;
+      left: clamp(16px, 4vw, 46px);
+      color: var(--accent);
+      font-family: var(--display);
+      font-size: clamp(9rem, 22vw, 18rem);
+      line-height: 1;
+      opacity: 0.32;
+    }
+
+    .quote-card h2 {
+      position: relative;
+      max-width: 920px;
+      font-size: clamp(2.6rem, 7vw, 6.4rem);
+      z-index: 1;
+    }
+
+    .quote-attribution {
+      margin-top: 24px;
+      color: var(--accent);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .argument {
+      max-width: 820px;
+      margin-top: 34px;
+      color: var(--ink);
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+    }
+
+    .stops-layout {
+      display: grid;
+      grid-template-columns: minmax(230px, 310px) minmax(0, 1fr);
+      gap: clamp(32px, 6vw, 78px);
+      max-width: 1440px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .timeline {
+      position: sticky;
+      top: 26px;
+      padding: 24px 0 24px 18px;
+      border-left: 1px solid var(--line-soft);
+      min-height: 70vh;
+    }
+
+    .timeline-title {
+      margin: 0 0 26px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .timeline-link {
+      appearance: none;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      width: 100%;
+      border: 0;
+      border-left: 2px solid transparent;
+      background: transparent;
+      color: var(--dim);
+      text-align: left;
+      padding: 12px 0 12px 18px;
+      margin-left: -20px;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .timeline-link:hover,
+    .timeline-link.is-active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .timeline-num {
+      font-weight: 700;
+    }
+
+    .timeline-stop {
+      display: block;
+      color: var(--ink);
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+
+    .timeline-link.is-active .timeline-stop,
+    .timeline-link:hover .timeline-stop {
+      color: var(--white);
+    }
+
+    .timeline-year {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.68rem;
+      color: currentColor;
+    }
+
+    .stop-section {
+      min-height: 100vh;
+      padding: 48px 0 126px;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+      position: relative;
+    }
+
+    .stop-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stop-header {
+      position: relative;
+      padding-top: 36px;
+      margin-bottom: 34px;
+    }
+
+    .stop-number {
+      position: absolute;
+      top: -12px;
+      left: -8px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: clamp(6rem, 13vw, 10rem);
+      font-weight: 700;
+      line-height: 0.8;
+      opacity: 0.16;
+      z-index: -1;
+    }
+
+    .stop-header h2 {
+      max-width: 960px;
+      font-size: clamp(2.6rem, 6vw, 6.2rem);
+    }
+
+    .stop-location {
+      margin-top: 16px;
+      color: var(--accent);
+      font-size: clamp(0.76rem, 1.5vw, 0.95rem);
+      text-transform: uppercase;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-flow: dense;
+      gap: 12px;
+      margin: 30px 0 34px;
+    }
+
+    .gallery-item {
+      border: 1px solid rgba(240, 238, 234, 0.1);
+      background: var(--panel);
+      min-height: 210px;
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+      isolation: isolate;
+    }
+
+    .gallery-item.featured {
+      grid-column: span 2;
+      grid-row: span 2;
+      min-height: 438px;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+      filter: saturate(0.86) contrast(1.08);
+      transition: transform 0.45s ease, filter 0.2s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.035);
+      filter: saturate(0.95) contrast(1.12);
+    }
+
+    .filename-tag {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 5px 8px;
+      background: rgba(8, 12, 16, 0.78);
+      border: 1px solid rgba(79, 232, 223, 0.24);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      z-index: 2;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      border: 1px dashed rgba(79, 232, 223, 0.45);
+      background:
+        linear-gradient(rgba(79, 232, 223, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79, 232, 223, 0.04) 1px, transparent 1px),
+        rgba(79, 232, 223, 0.035);
+      background-size: 18px 18px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .stop-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 430px);
+      gap: clamp(26px, 5vw, 54px);
+      align-items: start;
+    }
+
+    .context {
+      max-width: 780px;
+      font-size: clamp(1.02rem, 1.8vw, 1.2rem);
+    }
+
+    .context p:first-child {
+      margin-top: 0;
+    }
+
+    .stop-quote {
+      margin: 0;
+      padding: 18px 0 18px 22px;
+      border-left: 2px solid var(--accent);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+
+    .insight {
+      grid-column: 1 / -1;
+      margin-top: 18px;
+      padding-top: 24px;
+      border-top: 1px solid var(--accent-mid);
+      color: var(--accent);
+      font-size: clamp(1.25rem, 2.3vw, 1.75rem);
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .insight .label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .reflection {
+      padding-top: clamp(110px, 16vw, 190px);
+      padding-bottom: clamp(110px, 16vw, 190px);
+      background:
+        linear-gradient(180deg, rgba(8, 12, 16, 0), rgba(79, 232, 223, 0.06) 34%, rgba(8, 12, 16, 0));
+    }
+
+    .reflection-inner {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .reflection h2 {
+      margin-bottom: 38px;
+      font-size: clamp(3rem, 7vw, 7.2rem);
+    }
+
+    .reflection p {
+      margin: 0 0 30px;
+      color: var(--ink);
+      font-size: clamp(1.25rem, 2.3vw, 1.75rem);
+      line-height: 1.85;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.5s ease, transform 1.5s ease;
+    }
+
+    .reflection p.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sources {
+      padding-top: 80px;
+      padding-bottom: 42px;
+      border-top: 1px solid var(--line-soft);
+      background: rgba(7, 11, 15, 0.72);
+    }
+
+    .sources-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .sources h2 {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    .source-list {
+      display: grid;
+      gap: 18px;
+      margin: 30px 0 62px;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.7;
+    }
+
+    .copyright {
+      margin: 0;
+      color: var(--dim);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 72px clamp(18px, 4vw, 60px);
+      background: rgba(2, 5, 8, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .lightbox.is-open {
+      display: flex;
+    }
+
+    .lightbox-figure {
+      position: relative;
+      max-width: min(1120px, 88vw);
+      max-height: 82vh;
+      margin: 0;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 76vh;
+      object-fit: contain;
+      border: 1px solid rgba(240, 238, 234, 0.14);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.75);
+      background: var(--panel);
+    }
+
+    .lightbox-caption {
+      margin-top: 12px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    .lightbox-placeholder {
+      width: min(920px, 82vw);
+      height: min(620px, 68vh);
+      min-height: 280px;
+    }
+
+    .lightbox-button {
+      appearance: none;
+      position: absolute;
+      border: 1px solid rgba(79, 232, 223, 0.34);
+      background: rgba(8, 12, 16, 0.82);
+      color: var(--white);
+      font-family: var(--mono);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .lightbox-button:hover,
+    .lightbox-button:focus-visible {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+      outline: none;
+    }
+
+    .lightbox-close {
+      top: 22px;
+      right: 22px;
+      width: 44px;
+      height: 44px;
+      font-size: 1.5rem;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+      top: 50%;
+      width: 50px;
+      height: 68px;
+      transform: translateY(-50%);
+      font-size: 1.9rem;
+    }
+
+    .lightbox-prev {
+      left: 22px;
+    }
+
+    .lightbox-next {
+      right: 22px;
+    }
+
+    @media (max-width: 980px) {
+      body {
+        font-size: 17px;
+      }
+
+      .stops-layout {
+        display: block;
+      }
+
+      .timeline {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: auto;
+        margin: 0 -20px 40px;
+        padding: 12px 20px;
+        overflow-x: auto;
+        border-left: 0;
+        border-bottom: 1px solid var(--line-soft);
+        background: rgba(8, 12, 16, 0.92);
+        backdrop-filter: blur(12px);
+      }
+
+      .timeline-title {
+        flex: 0 0 auto;
+        margin: 0 8px 0 0;
+      }
+
+      .timeline-link {
+        grid-template-columns: auto;
+        min-width: 148px;
+        padding: 10px 12px;
+        margin: 0;
+        border-left: 0;
+        border-bottom: 2px solid transparent;
+        background: rgba(240, 238, 234, 0.035);
+      }
+
+      .timeline-link:hover,
+      .timeline-link.is-active {
+        border-bottom-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .stop-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .section {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .hero {
+        min-height: 92vh;
+      }
+
+      .hero::before {
+        inset: 10vh 18px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.1rem, 18vw, 5rem);
+      }
+
+      .quote-card {
+        padding: 34px 22px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item,
+      .gallery-item.featured {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: 250px;
+      }
+
+      .stop-section {
+        padding-bottom: 90px;
+      }
+
+      .stop-number {
+        font-size: 6rem;
+      }
+
+      .lightbox {
+        padding: 80px 14px;
+      }
+
+      .lightbox-prev,
+      .lightbox-next {
+        top: auto;
+        bottom: 18px;
+        transform: none;
+        width: 46px;
+        height: 46px;
+      }
+
+      .lightbox-prev {
+        left: calc(50% - 58px);
+      }
+
+      .lightbox-next {
+        right: calc(50% - 58px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="site-shell">
+    <section class="hero section" id="top" aria-label="Opening title">
+      <div class="hero-inner">
+        <p class="kicker fade-up">A Queens Infrastructure Walking Tour</p>
+        <h1 class="fade-up delay-1">How Technology and Infrastructure Transformed Queens</h1>
+        <p class="meta fade-up delay-2">A Walking Tour &middot; Tahmid Islam &middot; U.S. History</p>
+        <p class="thesis-line fade-up delay-3">Queens' diversity was built. Not born.</p>
+      </div>
+      <div class="scroll-indicator" aria-hidden="true"></div>
+    </section>
+
+    <section class="pull-quote section" aria-label="Thesis pull quote">
+      <article class="quote-card">
+        <h2>"Queens' history is the history of trains, planes and cars."</h2>
+        <p class="quote-attribution">&mdash; Jeffrey Kroessler, <em>Rural County, Urban Borough</em></p>
+        <div class="argument">
+          <p>Infrastructure does not follow people - it directs them. The subway system, the highways, the World's Fair, and the urban planning decisions of Robert Moses collectively created the physical conditions that made Queens the most ethnically diverse place on Earth. The diversity visible today is the endpoint of over a century of deliberate choices.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="stops section" id="stops" aria-label="Five walking tour stops">
+      <div class="stops-layout">
+        <nav class="timeline" aria-label="Walking tour timeline">
+          <p class="timeline-title">Tour Stops</p>
+          <button class="timeline-link is-active" type="button" data-target="stop-1">
+            <span class="timeline-num">01</span>
+            <span>
+              <span class="timeline-stop">Hunters Point Avenue Station</span>
+              <span class="timeline-year">1892-1917</span>
+            </span>
+          </button>
+          <button class="timeline-link" type="button" data-target="stop-2">
+            <span class="timeline-num">02</span>
+            <span>
+              <span class="timeline-stop">Unisphere</span>
+              <span class="timeline-year">1964</span>
+            </span>
+          </button>
+          <button class="timeline-link" type="button" data-target="stop-3">
+            <span class="timeline-num">03</span>
+            <span>
+              <span class="timeline-stop">New York Hall of Science</span>
+              <span class="timeline-year">1964</span>
+            </span>
+          </button>
+          <button class="timeline-link" type="button" data-target="stop-4">
+            <span class="timeline-num">04</span>
+            <span>
+              <span class="timeline-stop">Panorama of New York City</span>
+              <span class="timeline-year">1964</span>
+            </span>
+          </button>
+          <button class="timeline-link" type="button" data-target="stop-5">
+            <span class="timeline-num">05</span>
+            <span>
+              <span class="timeline-stop">Diversity Plaza</span>
+              <span class="timeline-year">2012</span>
+            </span>
+          </button>
+        </nav>
+
+        <div class="stop-list" id="stop-list"></div>
+      </div>
+    </section>
+
+    <section class="reflection section" aria-label="Personal reflection">
+      <div class="reflection-inner">
+        <h2>Why This Tour</h2>
+        <p>I was born in Bangladesh and came to Queens at age four. I grew up in Jackson Heights eating at the same Bengali restaurants, walking past the same vendors on Roosevelt Avenue, and seeing the same shops outside Diversity Plaza - and I never once asked why any of it was there.</p>
+        <p>Diversity was simply life, so it seemed like it had always been that way for everyone. This project revealed just how wrong that assumption was. What shocked me most was not any single fact, but how many choices had been made: choices to build, choices of policy, choices of planning, by people who never thought about me, my parents, or anyone like us.</p>
+        <p>Robert Moses did not plan for a Bangladeshi immigrant community. He planned for American progress without them. And yet here we are, on the 7 train, in Diversity Plaza, in a borough whose creation he helped make possible.</p>
+        <p>That contradiction - that systems built to exclude can become the foundation others build lives upon - is the most honest thing I learned this year about how American history actually works.</p>
+      </div>
+    </section>
+
+    <footer class="sources section" aria-label="Sources">
+      <div class="sources-inner">
+        <h2>Secondary Sources</h2>
+        <ul class="source-list">
+          <li>Kroessler, Jeffrey A. <em>Rural County, Urban Borough: A History of Queens.</em> Bloomington: Indiana University Press, 2002.</li>
+          <li>Waters, Mary C., and Philip Kasinitz. "Immigrants in New York City: Reaping the Benefits of Continuous Immigration." <em>Daedalus</em> 142, no. 3 (2013): 92-106.</li>
+          <li>Queens Museum. "The Panorama of the City of New York." Accessed May 31, 2026. https://queensmuseum.org</li>
+        </ul>
+        <p class="copyright">Tahmid Islam &middot; U.S. History &middot; June 2026</p>
+      </div>
+    </footer>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox" aria-hidden="true">
+    <button class="lightbox-button lightbox-close" type="button" aria-label="Close lightbox">&times;</button>
+    <button class="lightbox-button lightbox-prev" type="button" aria-label="Previous image">&lsaquo;</button>
+    <figure class="lightbox-figure">
+      <img class="lightbox-image" id="lightbox-image" alt="">
+      <div class="image-placeholder lightbox-placeholder" id="lightbox-placeholder" hidden></div>
+      <figcaption class="lightbox-caption" id="lightbox-caption"></figcaption>
+    </figure>
+    <button class="lightbox-button lightbox-next" type="button" aria-label="Next image">&rsaquo;</button>
+  </div>
+
+  <script>
+    const stops = [
+      {
+        id: 1,
+        name: "Hunters Point Avenue Station / Steinway Tunnel",
+        location: "Hunters Point Avenue Station / 1892-1917",
+        years: "1892-1917",
+        images: [
+          "images/steinway/photo1.png",
+          "images/steinway/photo2.png",
+          "images/steinway/photo3.png"
+        ],
+        context: [
+          "William Steinway began the tunnel in 1892 because he believed a direct rail connection would raise the value of his western Queens property. Construction ran into explosions, underground springs, legal disputes, and Steinway's own death in 1896.",
+          "The city bought the unfinished tunnel in 1913 for $3 million as part of the Dual Contracts transit expansion. Subway service finally opened on April 21, 1917, from Hunters Point Avenue to Grand Central Terminal.",
+          "Before the tunnel, railroads ended at the river's edge and crossing required a boat. After it, Queens was no longer isolated, and wave after wave of immigrant communities followed the line into the borough."
+        ],
+        quote: "Queens' history is the history of trains, planes and cars.",
+        quoteSource: "Jeffrey Kroessler",
+        insight: "The tunnel didn't just connect Queens to Manhattan - it made Queens' entire demographic future possible."
+      },
+      {
+        id: 2,
+        name: "Unisphere, Flushing Meadows",
+        location: "Flushing Meadows-Corona Park / 1964",
+        years: "1964",
+        images: [
+          "images/unisphere/photo1.png",
+          "images/unisphere/photo2.png",
+          "images/unisphere/photo3.png"
+        ],
+        context: [
+          "The Unisphere is a 140-foot stainless steel globe built for the 1964 World's Fair as a symbol of international connection and American technological achievement at the height of the Cold War.",
+          "Tens of millions of people visited the fair. One year later, Congress passed the 1965 Immigration and Nationality Act, eliminating national-origin quotas and opening immigration from Asia, Africa, and Latin America.",
+          "The borough that hosted an international celebration of progress became, in the decades that followed, dramatically more diverse."
+        ],
+        quote: "The Unisphere was built as a symbol of international connections and advanced technology.",
+        quoteSource: "Queens Museum",
+        insight: "The borough that celebrated the world became the world."
+      },
+      {
+        id: 3,
+        name: "New York Hall of Science",
+        location: "Flushing Meadows-Corona Park / 1964",
+        years: "1964",
+        images: [
+          "images/ny hall of science/photo1.png",
+          "images/ny hall of science/photo2.png",
+          "images/ny hall of science/photo3.png",
+          "images/ny hall of science/photo4.png",
+          "images/ny hall of science/photo5.png"
+        ],
+        context: [
+          "The New York Hall of Science was built for the 1964 World's Fair in response to Sputnik and American fears of falling behind the Soviet Union in science, technology, engineering, and math.",
+          "One of the few surviving World's Fair structures, it was created to address national scientific illiteracy. Its impact was felt locally too, making Queens a destination for immigrants seeking education and economic opportunity.",
+          "Its newest exhibit, CityWorks, teaches visitors about urban infrastructure - the pipes, trains, and systems that make city life possible. The irony is that the building itself is a product of exactly that kind of public investment."
+        ],
+        quote: "Scientific investment helped shape the borough's appeal and its place in the modern city.",
+        quoteSource: "Jeffrey Kroessler, p. 210",
+        insight: "Scientific investment made Queens economically attractive to the very communities that now define it."
+      },
+      {
+        id: 4,
+        name: "Panorama of the City of New York",
+        location: "Queens Museum / 1964",
+        years: "1964",
+        images: [
+          "images/panorama/photo1.png",
+          "images/panorama/photo2.png",
+          "images/panorama/photo3.png",
+          "images/panorama/photo4.png"
+        ],
+        context: [
+          "The Panorama is a 9,335-square-foot scale model of all five boroughs, built by Robert Moses, who was president of the 1964 World's Fair. Every bridge, highway, park, and building appears at uniform scale.",
+          "From the elevated viewing platform, Queens looks deliberately constructed: highways radiating outward, subway lines expanding into new neighborhoods, and green spaces placed with intention.",
+          "The Panorama is not an impartial record. It is a monument to Moses' vision of what New York should be, a vision that created the physical conditions for diversity while simultaneously uprooting communities that stood in its way."
+        ],
+        quote: "Transportation networks shaped where people lived, worked, and invested.",
+        quoteSource: "Jeffrey Kroessler, pp. 150-152",
+        insight: "Moses understood that transportation determines destiny - and used that power to connect and divide simultaneously."
+      },
+      {
+        id: 5,
+        name: "Diversity Plaza, Jackson Heights",
+        location: "Jackson Heights-Roosevelt Avenue / 2012",
+        years: "2012",
+        images: [
+          "images/diversity plaza/photo1.png",
+          "images/diversity plaza/photo2.png"
+        ],
+        context: [
+          "Diversity Plaza sits beside the Jackson Heights-Roosevelt Avenue station, where five subway lines converge. That proximity is not coincidental: the plaza exists at one of the borough's most important transit crossroads.",
+          "Created in 2012 by closing two city blocks to car traffic and giving priority to pedestrians, it became a gathering place for South Asian, Central Asian, and Latin American communities from Nepal, Bangladesh, Pakistan, Mexico, Guatemala, and beyond.",
+          "Its design is modest - elevated walkways, planters, movable chairs - but what it represents is monumental: demonstrations, cultural festivals, communal meals, and a public space made by the communities infrastructure brought together."
+        ],
+        quote: "Immigrants in New York do not merely survive but transform their surroundings in ways that make the city more hospitable for future immigrants.",
+        quoteSource: "Mary C. Waters and Philip Kasinitz",
+        insight: "What looks spontaneous is the endpoint of over one hundred years of deliberate planning."
+      }
+    ];
+
+    const stopList = document.querySelector("#stop-list");
+    const timelineLinks = Array.from(document.querySelectorAll(".timeline-link"));
+    const lightbox = document.querySelector("#lightbox");
+    const lightboxImage = document.querySelector("#lightbox-image");
+    const lightboxPlaceholder = document.querySelector("#lightbox-placeholder");
+    const lightboxCaption = document.querySelector("#lightbox-caption");
+    const closeButton = document.querySelector(".lightbox-close");
+    const prevButton = document.querySelector(".lightbox-prev");
+    const nextButton = document.querySelector(".lightbox-next");
+
+    let activeGallery = [];
+    let activeStopName = "";
+    let activeImageIndex = 0;
+    let previousFocus = null;
+
+    function createPlaceholder(filename) {
+      const placeholder = document.createElement("div");
+      placeholder.className = "image-placeholder";
+      placeholder.textContent = "Add image: " + filename;
+      return placeholder;
+    }
+
+    function handleImageError(event) {
+      const img = event.currentTarget;
+      const wrapper = img.closest(".gallery-item");
+      if (!wrapper || wrapper.querySelector(".image-placeholder")) return;
+      img.hidden = true;
+      wrapper.appendChild(createPlaceholder(img.getAttribute("src")));
+    }
+
+    function renderStops() {
+      stopList.innerHTML = stops.map((stop) => {
+        const paragraphs = stop.context.map((text) => `<p>${text}</p>`).join("");
+        const gallery = stop.images.map((src, index) => `
+          <button class="gallery-item ${index === 0 ? "featured" : ""}" type="button" data-stop-index="${stop.id - 1}" data-image-index="${index}" aria-label="Open ${stop.name} photo ${index + 1}">
+            <img src="${src}" alt="${stop.name} photo ${index + 1}" loading="lazy">
+            <span class="filename-tag">${src}</span>
+          </button>
+        `).join("");
+
+        return `
+          <article class="stop-section" id="stop-${stop.id}" data-stop-id="${stop.id}">
+            <header class="stop-header">
+              <div class="stop-number" aria-hidden="true">${String(stop.id).padStart(2, "0")}</div>
+              <h2>${stop.name}</h2>
+              <p class="stop-location">${stop.location}</p>
+            </header>
+            <div class="gallery" aria-label="${stop.name} photo gallery">
+              ${gallery}
+            </div>
+            <div class="stop-body">
+              <div class="context">${paragraphs}</div>
+              <blockquote class="stop-quote">
+                "${stop.quote}"<br>
+                <span class="quote-source">&mdash; ${stop.quoteSource}</span>
+              </blockquote>
+              <p class="insight"><span class="label">Key Insight</span>${stop.insight}</p>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      document.querySelectorAll(".gallery img").forEach((img) => {
+        img.addEventListener("error", handleImageError);
+      });
+
+      document.querySelectorAll(".gallery-item").forEach((button) => {
+        button.addEventListener("click", () => {
+          const stopIndex = Number(button.dataset.stopIndex);
+          const imageIndex = Number(button.dataset.imageIndex);
+          openLightbox(stopIndex, imageIndex);
+        });
+      });
+    }
+
+    function setActiveTimeline(stopId) {
+      timelineLinks.forEach((link) => {
+        link.classList.toggle("is-active", link.dataset.target === "stop-" + stopId);
+      });
+    }
+
+    function openLightbox(stopIndex, imageIndex) {
+      const stop = stops[stopIndex];
+      activeGallery = stop.images;
+      activeStopName = stop.name;
+      activeImageIndex = imageIndex;
+      previousFocus = document.activeElement;
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lightbox-open");
+      updateLightbox();
+      closeButton.focus();
+    }
+
+    function updateLightbox() {
+      const src = activeGallery[activeImageIndex];
+      lightboxImage.hidden = false;
+      lightboxPlaceholder.hidden = true;
+      lightboxImage.src = src;
+      lightboxImage.alt = activeStopName + " photo " + (activeImageIndex + 1);
+      lightboxCaption.textContent = src + " (" + (activeImageIndex + 1) + " of " + activeGallery.length + ")";
+    }
+
+    lightboxImage.addEventListener("error", () => {
+      const src = activeGallery[activeImageIndex];
+      lightboxImage.hidden = true;
+      lightboxPlaceholder.hidden = false;
+      lightboxPlaceholder.textContent = "Add image: " + src;
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("lightbox-open");
+      lightboxImage.removeAttribute("src");
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus();
+      }
+    }
+
+    function showNextImage() {
+      activeImageIndex = (activeImageIndex + 1) % activeGallery.length;
+      updateLightbox();
+    }
+
+    function showPreviousImage() {
+      activeImageIndex = (activeImageIndex - 1 + activeGallery.length) % activeGallery.length;
+      updateLightbox();
+    }
+
+    function trapLightboxFocus(event) {
+      if (!lightbox.classList.contains("is-open") || event.key !== "Tab") return;
+      const focusable = Array.from(lightbox.querySelectorAll("button, [href], [tabindex]:not([tabindex='-1'])"))
+        .filter((element) => !element.hidden && !element.disabled);
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    renderStops();
+
+    timelineLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        const target = document.getElementById(link.dataset.target);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    const stopObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          setActiveTimeline(entry.target.dataset.stopId);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: "-12% 0px -52% 0px"
+    });
+
+    document.querySelectorAll(".stop-section").forEach((section) => {
+      stopObserver.observe(section);
+    });
+
+    const reflectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+        }
+      });
+    }, {
+      threshold: 0.25
+    });
+
+    document.querySelectorAll(".reflection p").forEach((paragraph, index) => {
+      paragraph.style.transitionDelay = `${index * 180}ms`;
+      reflectionObserver.observe(paragraph);
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+    prevButton.addEventListener("click", showPreviousImage);
+    nextButton.addEventListener("click", showNextImage);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!lightbox.classList.contains("is-open")) return;
+
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowRight") showNextImage();
+      if (event.key === "ArrowLeft") showPreviousImage();
+      trapLightboxFocus(event);
+    });
+  </script>
+</body>
+</html>
